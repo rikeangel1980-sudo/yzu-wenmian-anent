@@ -1,0 +1,48 @@
+{
+  "poc": "P04 PoC-03 FastAPI@8787",
+  "run_at": "2026-11-24T15:11:31.695631+08:00",
+  "items": {
+    "port_8787_available": {
+      "status": "PASS",
+      "detail": {
+        "port": 8787
+      }
+    },
+    "service_start": {
+      "status": "PASS",
+      "detail": {
+        "host": "127.0.0.1",
+        "port": 8787
+      }
+    },
+    "api_route": {
+      "status": "PASS",
+      "detail": {
+        "status": "ok",
+        "poc": true
+      }
+    },
+    "static_mount": {
+      "status": "PASS",
+      "detail": {
+        "has_marker": true
+      }
+    },
+    "loopback_only": {
+      "status": "PASS",
+      "detail": {
+        "hostname": "LEEJUN-OFFICE",
+        "lan_ip": "180.208.0.237",
+        "external_reachable": false,
+        "note": "绑定 127.0.0.1 时局域网 IP 应不可达"
+      }
+    },
+    "service_stop": {
+      "status": "PASS",
+      "detail": {
+        "thread_alive": false
+      }
+    }
+  },
+  "errors": []
+}

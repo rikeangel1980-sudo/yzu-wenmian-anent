@@ -1,0 +1,19 @@
+{
+  "poc": "P04 PoC-02 AntV G6 渲染",
+  "run_at": "2026-11-24 15:11 +0800",
+  "method": "Chrome headless --dump-dom 实跑本地 dist/g6.min.js + 40 节点/40 边去重数据",
+  "package": {"name": "@antv/g6", "version": "5.1.1", "license": "MIT", "source": "https://cdn.jsdelivr.net/npm/@antv/g6@5.1.1/dist/g6.min.js", "bytes": 1383347},
+  "items": {
+    "final_result": {"status": "PASS", "detail": {"g6Version": "5.1.1", "nodes": 40, "edges": 40, "graphNodes": 40, "canvasCount": 4, "renderMs": 106, "ticks": 1}},
+    "api_v4_readdata": {"status": "FAIL", "detail": {"reason": "TypeError: graph.readData is not a function", "note": "架构文档原假设的 v4 API 在 v5.1.1 不存在，属真实版本陷阱"}},
+    "duplicate_edge_rejected": {"status": "FAIL", "detail": {"reason": "Error: Edge already exists: n0-n1", "note": "v5 强制边唯一，图谱数据入渲染前必须按稳定 ID 去重，与 KG-009/KG-011 一致"}},
+    "v5_constructor_data_api": {"status": "PASS", "detail": {"reason": "new G6.Graph({data:{nodes,edges}}).render() 成功渲染"}}
+  },
+  "findings": [
+    "架构文档 §9.4/ADR-006 写的是 G6 v4 集成口（readData），实际 latest 为 v5.1.1，API 已破坏性变更；P06/P07 必须以 v5 API 修正设计。",
+    "G6 v5 拒绝重复边，图谱数据模型必须先做关系去重与稳定 ID（呼应 KG-009 关系证据、KG-011 批量审核）。",
+    "canvas 层数为 4，说明 G6 v5 分层渲染，前端样式/交互需按新渲染架构设计，不能直接套 v4 选择器逻辑。",
+    "本 PoC 仅验证 40 节点规模；架构 §20 建议基准 500 节点/1500 边首渲染 ≤3s 属 P08 性能门禁，未在此规模实测前不判 MUST 通过。"
+  ],
+  "status_note": "PASS（小规模渲染可行）；性能阈值按 P08 固化，本 PoC 不宣称满足 500 节点基准。"
+}

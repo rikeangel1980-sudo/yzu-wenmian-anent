@@ -1,0 +1,56 @@
+{
+  "poc": "P04 PoC-01 SQLite+WAL",
+  "run_at": "2026-11-24T15:09:39.960890+08:00",
+  "env": {
+    "python": "3.12.9",
+    "sqlite_lib": "3.45.3"
+  },
+  "items": {
+    "wal_enable": {
+      "status": "PASS",
+      "detail": {
+        "journal_mode": "wal"
+      }
+    },
+    "transaction_rollback": {
+      "status": "PASS",
+      "detail": {
+        "rows_after_rollback": 0
+      }
+    },
+    "concurrent_write": {
+      "status": "PASS",
+      "detail": {
+        "expected": 400,
+        "actual": 400,
+        "errors": [],
+        "elapsed_sec": 0.154
+      }
+    },
+    "online_backup": {
+      "status": "PASS",
+      "detail": {
+        "source_rows": 400,
+        "backup_rows": 400
+      }
+    },
+    "graph_subquery_500_1500": {
+      "status": "PASS",
+      "detail": {
+        "nodes": 500,
+        "edges": 1500,
+        "sample_rows": 3,
+        "query_ms": 0.0,
+        "note": "仅验证 SQL 层取局部子图；前端 G6 渲染另见 PoC-02"
+      }
+    },
+    "chinese_path": {
+      "status": "PASS",
+      "detail": {
+        "db_file": "面点工艺学_测试.db",
+        "readback": "水调面团"
+      }
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>P04 G6 PoC</title>
+<style>body{margin:0}#c{width:600px;height:400px}</style></head>
+<body>
+<div id="c"></div>
+<pre id="result">RUNNING</pre>
+<script src="./g6.min.js"></script>
+<script>
+(function(){
+  var out = document.getElementById('result');
+  function done(status, detail){ out.textContent = status + ' ' + JSON.stringify(detail); }
+  try {
+    if (typeof G6 === 'undefined' || !G6.Graph) { done('FAIL', {reason:'G6 global missing'}); return; }
+    var nodes = [], edges = [], seen = {};
+    for (var i=0;i<40;i++) nodes.push({id:'n'+i, label:'节点'+i});
+    for (var i=0;i<60;i++) {
+      var s='n'+(i%40), t='n'+((i*7+1)%40), key=s+'-'+t;
+      if (seen[key]) continue; seen[key]=1;
+      edges.push({id:'e'+edges.length, source:s, target:t});
+    }
+    window.__graph = new G6.Graph({container:'c', width:600, height:400,
+                              data:{nodes:nodes, edges:edges}});
+    var t0 = performance.now();
+    var p = window.__graph.render();
+    if (p && typeof p.catch === 'function') p.catch(function(e){ done('FAIL',{renderError:String(e)}); });
+    window.__meta = {t0:t0, nodeCount:nodes.length, edgeCount:edges.length};
+    var ticks = 0;
+    var timer = setInterval(function(){
+      ticks++;
+      var canvasCount = document.querySelectorAll('#c canvas').length;
+      if (canvasCount > 0 || ticks > 40) {
+        clearInterval(timer);
+        var g = window.__graph;
+        var drawn = (g.getNodeData && g.getNodeData().length) || -1;
+        done(canvasCount>0 ? 'PASS' : 'FAIL',
+             {g6Version:'5.1.1', nodes:window.__meta.nodeCount, edges:window.__meta.edgeCount,
+              graphNodes:drawn, canvasCount:canvasCount,
+              renderMs:Math.round(performance.now()-window.__meta.t0), ticks:ticks});
+      }
+    }, 100);
+  } catch(e) { done('FAIL', {reason:String(e), stack:e.stack}); }
+})();
+</script>
+</body></html>
