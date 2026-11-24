@@ -59,6 +59,7 @@
 | F-13 | 用户 15:50 确认方案 A（Editorial）为唯一开发基线，学生端与教师端统一风格与色调；`prototype/baseline.html` 锁定 A。 | `docs/P05_方案A基线确认记录.md` + 8/8 基线冒烟 | **已确认** | 交付前端只含 A 资产；B/C 不部署；禁止角色级配色与非 token 色值。 |
 | F-14 | P06 总体架构 PASS（架构层面）；初稿独立挑战 FAIL（4 BLOCKER），修订后 26 项发现全 CLOSED；G6 假 PASS 已用严格判据复验；ORM 基线定为 sqlite3+schema_migrations。 | `docs/P06_系统总体架构设计.md` §10~§12 + `poc/results/g6_poc_result.json` | **已确认（2026-11-24 16:20）** | P07 按 ADR 与 75 项追溯设计；500/1500 性能与外部模型联通仍 NOT_RUN。 |
 | F-15 | P07 详细设计完成，覆盖 11 模块数据库/ER、状态机、Pydantic API、前端组件、AI 工程与 Prompt、安全日志；用户指定 8 项硬约束落设计；8 项自检发现全 CLOSED。新增 ADR-015：检索工具化，不集成 `kb-memory`/第二服务，向量 PoC 须 golden set 证明缺口后另立 ADR。 | `docs/P07_系统详细设计与接口规范.md` §6/§8/§9 + 附录 A | **已确认（设计层 PASS 有条件，2026-11-24 22:20）** | 迁移执行/OpenAPI/UI/性能/外部联通均 NOT_RUN；ENH-009 与 OPEN-13/14 已登记。 |
+| F-16 | P08 测试方案完成：75 项 MUST 逐项测试矩阵；8 入口清单锁定 v0.1；42 样本/71 场景仅框架锁定、内容 BLOCKED（一阶段事实源只有汇总数字、无逐条清单；P00-A1 禁止提取旧目录；新教材未解析且授权未闭）；500/1500 方法、golden set 结构、A 基线 10 项门禁、独立审查与验收标准齐备。 | `docs/P08_测试方案与验收标准.md` + `docs/controls/CONTROL_INDEX.md` | **已确认（方案层 PASS 有条件，2026-11-24 22:28）** | 所有测试执行项 NOT_RUN；`STU-005`/`KG-014`/`NFR-007` BLOCKED；解锁须教材解析+授权+教师签字，AI 不代签。 |
 
 ## 假设与待确认事项
 
