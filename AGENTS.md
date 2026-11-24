@@ -6,7 +6,8 @@
 
 - 工程根目录：`D:\Projects\wenmian`。
 - 所有新增代码、测试、报告与交付物写入该目录。
-- `D:\Projects\wenmian_buddy` 为前序产物目录，默认不读取、不导入、不作为基线；如确需参考，必须用户明确授权并记录原因。
+- `D:\Projects\wenmian_buddy` 为前序产物目录，用户已于 2026-11-24 12:30 确认完全排除；不得读取、导入或作为基线，也不得参考其页面结构。如确需参考，必须用户重新明确授权并记录原因。
+- Git 仓库：`git@github.com:rikeangel1980-sudo/yzu-wenmian-anent.git`，分支 `main`；首次提交 `e9dd201` 为 P00 文档基线，非应用源码。提交前核对工作区，不得把密钥、`.workbuddy/` 或外部规范副本提交入库。
 
 ## 2. 事实源优先级
 
