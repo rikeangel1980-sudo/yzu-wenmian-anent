@@ -1,0 +1,26 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "问面 V2.0 教学助手",
+    "version": "2.0.0"
+  },
+  "paths": {
+    "/api/v2/ops/health": {
+      "get": {
+        "summary": "Health",
+        "description": "五态健康检查（P08 api01）：应用/DB/目录/索引/模型配置，不含 Key 明文。",
+        "operationId": "health_api_v2_ops_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

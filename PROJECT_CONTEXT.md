@@ -62,6 +62,7 @@
 | F-16 | P08 测试方案完成：75 项 MUST 逐项测试矩阵；8 入口清单锁定 v0.1；42 样本/71 场景仅框架锁定、内容 BLOCKED（一阶段事实源只有汇总数字、无逐条清单；P00-A1 禁止提取旧目录；新教材未解析且授权未闭）；500/1500 方法、golden set 结构、A 基线 10 项门禁、独立审查与验收标准齐备。 | `docs/P08_测试方案与验收标准.md` + `docs/controls/CONTROL_INDEX.md` | **已确认（方案层 PASS 有条件，2026-11-24 22:28）** | 所有测试执行项 NOT_RUN；`STU-005`/`KG-014`/`NFR-007` BLOCKED；解锁须教材解析+授权+教师签字，AI 不代签。 |
 | F-17 | 2026-11-24 22:36 用户明确授权「只读参考旧工程清单文本」窄例外；已迁移 42 问题文本（36 入槽/6 备选/6 待新编）与 63 条 QA 检查意图（另补 8 条 V2.0 场景），生成两份 v0.2 草案并登记 `CONTENT_DRAFT_PENDING_TEACHER`。 | `docs/controls/REJECT_SAMPLES_v0.2.md`、`E2E_SCENARIOS_v0.2.md`、`CONTROL_INDEX.md` | **已确认（草案已生成；内容未锁定，判定 BLOCKED）** | 未导入旧代码/页面/数据；旧运行数值未迁入；须教师逐条签字方可升 v1.0；旧抽签能力 3 项登记 OPEN-15。 |
 | F-18 | P09 开发任务拆解完成：16 个任务卡（含 P10 前置门禁）八字段齐全，纵向切片优先 MOD-BASE，75 项 MUST 全覆盖并逐项映射 P08 用例；共享核心冻结 + B01 唯一例外；4 项自检发现全 CLOSED。 | `docs/P09_开发任务拆解与依赖规划.md` §2~§6 | **已确认（计划层 PASS 有条件，2026-11-24 23:22）** | 所有任务执行状态 NOT_RUN；STU-005/KG-014/NFR-007/NFR-011 等保持 BLOCKED；P10 静态门禁通过前不得进入 P11；未做外部独立审查。 |
+| F-19 | P10 工程初始化完成（工程底座层 PASS）：Python 3.12.9 venv + 32 包精确锁定；FastAPI 骨架（`app/common/**` 六模块+`app/main.py`）、sqlite3+schema_migrations（0000 已执行并记 SHA）、A 基线 web 派生资产（无 index.html/B-C/硬编码色）；实测启动 127.0.0.1:8787、健康检查五态、netstat 仅 loopback、OpenAPI 仅 `/api/v2/*`、pytest 5/5、G1–G10 无 FAIL。 | `docs/P10_工程初始化报告.md` + `docs/P10_静态门禁报告.md` + `openapi.json` | **已确认（工程底座层 PASS，2026-11-24 23:28）** | 首次 G2 误报（注释中的 scheme 声明）经 `strip_comments()` 修正后重跑，非放宽判据；业务模块全 NOT_RUN；G6/G7/G9/G10 仅 STRUCTURAL_PASS，运行时判据 NOT_RUN(P13)；教材清单/阈值/D3 仍 BLOCKED；P12 外部审查未执行。 |
 
 ## 假设与待确认事项
 

@@ -1,0 +1,59 @@
+/* ========== A 基线布局骨架 ==========
+   P10 派生自 prototype/styles/schemes.css 的 A 段：沿用 ed-* 真实类名，
+   色值全部走 tokens.css 变量（G3），无 [data-role] 配色（G4）。
+   只提供结构锚点；具体业务页面在 P11 各任务中扩展。 */
+
+.ed-masthead{background:var(--surface);border-bottom:2px solid var(--text);
+  padding:14px 34px 10px;display:flex;align-items:baseline;gap:20px;position:sticky;top:0;z-index:40}
+.ed-masthead .brand{font-family:var(--font-display);font-size:26px;letter-spacing:-.03em}
+.ed-masthead .brand small{display:block;font-family:var(--font-body);font-size:10px;letter-spacing:.22em;color:var(--muted)}
+.ed-masthead .issue{font-family:var(--font-body);font-size:11px;color:var(--muted);letter-spacing:.08em;border-left:1px solid var(--border);padding-left:20px}
+.ed-masthead .spacer{flex:1}
+.ed-masthead .role{font-family:var(--font-body);font-size:11px;letter-spacing:.1em;color:var(--accent);border:1px solid var(--accent);padding:4px 12px}
+
+.ed-shell{display:grid;grid-template-columns:64px 1fr;min-height:calc(100vh - 60px)}
+.ed-spine{background:var(--surface-2);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;gap:4px;padding:22px 0}
+.ed-spine .vol{font-family:var(--font-display);font-size:12px;color:var(--muted);writing-mode:vertical-rl;letter-spacing:.3em;margin-bottom:16px}
+.ed-spine button{width:44px;min-height:44px;display:grid;place-items:center;font-family:var(--font-body);font-size:11px;color:var(--muted);border-left:3px solid transparent;writing-mode:vertical-rl;letter-spacing:.12em}
+.ed-spine button:hover,.ed-spine button.on{color:var(--accent);border-left-color:var(--accent)}
+.ed-main{padding:34px 40px 60px;max-width:1280px}
+
+.page-head,.ed-kicker{font-family:var(--font-body);font-size:11px;letter-spacing:.24em;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:18px}
+.ed-title{font-size:52px;letter-spacing:-.035em;line-height:1.05;margin-bottom:8px}
+.ed-lede,.ed-deck{font-family:var(--font-body);font-size:15px;color:var(--muted);line-height:1.9;max-width:640px;margin-bottom:28px}
+.ed-rule{border:0;border-top:1px solid var(--text);margin:22px 0}
+.ed-columns{display:grid;grid-template-columns:1.7fr 1fr;gap:38px}
+.ed-column{border-left:1px solid var(--border);padding-left:24px}
+.ed-column:first-child{border-left:none;padding-left:0}
+.ed-entry{padding:14px 0;border-bottom:1px solid var(--border)}
+.ed-entry:last-child{border-bottom:none}
+.ed-entry .no{font-family:var(--font-display);font-size:20px;color:var(--accent);margin-right:10px}
+.ed-entry .meta{font-family:var(--font-body);font-size:11px;color:var(--muted);margin-top:4px}
+.ed-quote{background:var(--accent-soft);border-left:3px solid var(--accent);padding:16px 18px;font-size:13px;line-height:1.8;margin:14px 0}
+
+/* 学生 3 项 / 教师 4 项指标：auto-fit 避免孤行（G6 结构锚点） */
+.ed-figures,.ind-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:24px 0}
+.ed-figures div,.ind-metric{padding:16px 18px;border-right:1px solid var(--border)}
+.ed-figures div:last-child,.ind-metric:last-child{border-right:none}
+.ed-figures .n,.ind-metric .v{font-family:var(--font-display);font-size:34px;color:var(--text)}
+.ed-figures .l,.ind-metric .k{font-family:var(--font-body);font-size:11px;letter-spacing:.1em;color:var(--muted)}
+
+.item-list{display:grid;gap:0}
+.issue{padding:12px 0;border-bottom:1px solid var(--border)}
+.filterbar,.seg{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+
+/* 状态页：会话失效/未登录必须含登录入口与返回路径（G7 结构锚点） */
+.ind-status{border:1px solid var(--border-strong);background:var(--surface);padding:28px;margin:20px 0}
+.ind-statusbar{font-family:var(--font-body);font-size:11px;letter-spacing:.06em;color:var(--muted)}
+.ind-status .actions{display:flex;gap:10px;margin-top:16px}
+
+/* 图谱降级：画布异常时保留搜索、列表与详情面板（G10 结构锚点） */
+.graph-wrap{display:grid;grid-template-columns:200px 1fr 260px;gap:12px;min-height:420px}
+.graph-left,.graph-center,.graph-right{border:1px solid var(--border);background:var(--surface);padding:14px}
+.graph-center .canvas-fallback{display:grid;place-items:center;height:100%;color:var(--muted);font-size:12px}
+
+/* 二次确认弹层：批量/发布/成绩确认（G9 结构锚点） */
+.confirm-layer{position:fixed;inset:0;background:var(--surface-2);display:none;place-items:center;z-index:60}
+.confirm-layer.open{display:grid}
+.confirm-layer .card{background:var(--surface);border:1px solid var(--text);padding:24px;max-width:480px}

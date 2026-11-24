@@ -1,0 +1,46 @@
+/* ========== 基础排版与通用组件 ==========
+   P10 派生自 prototype/styles/base.css：删除原型控制台 #devbar 段，
+   所有色值改用 tokens.css 变量（静态门禁 G3）；无 [data-role] 配色覆盖（G4）。 */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+img,svg{max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:var(--focus);outline-offset:var(--focus-offset)}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--font-body);line-height:var(--body-lh);letter-spacing:var(--body-ls);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.15;margin:0}
+.tabnums{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;
+  font-size:11px;font-family:var(--font-body);border:1px solid var(--border)}
+.pill.ok{color:var(--ok);border-color:var(--ok)}
+.pill.warn{color:var(--warn);border-color:var(--warn)}
+.pill.danger{color:var(--danger);border-color:var(--danger)}
+.pill.accent{color:var(--accent);border-color:var(--accent)}
+.muted{color:var(--muted)}
+.icon-btn{display:inline-grid;place-items:center;min-width:36px;min-height:36px}
+.svg-ico{width:17px;height:17px;flex:none;vertical-align:-3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  min-height:44px;padding:0 18px;border-radius:var(--radius);font-weight:700;font-size:13px;
+  border:1px solid var(--border-strong);background:var(--surface);transition:transform var(--dur-fast),background var(--dur-fast)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.ghost{background:transparent}
+
+.reveal{opacity:0;transform:translateY(18px)}
+@media (prefers-reduced-motion:no-preference){
+  .reveal.in{opacity:1;transform:none;
+    transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out)}
+}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+.skeleton{display:grid;gap:12px}
+.sk-line{height:14px;border-radius:4px;background:linear-gradient(90deg,var(--surface-2),var(--surface),var(--surface-2));background-size:200% 100%;animation:sh 1.2s infinite}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.sk-line{animation:none}}

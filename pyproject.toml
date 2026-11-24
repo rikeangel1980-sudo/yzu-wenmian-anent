@@ -1,0 +1,31 @@
+[project]
+name = "wenmian-v2"
+version = "2.0.0"
+description = "问面 V2.0 · 中国名点课程智能教学助手（单机单机位重构版）"
+requires-python = ">=3.12,<3.13"
+
+# 依赖版本与 requirements.lock 对齐；P10 锁定，开发中不随意升级主版本（P04 §5.4）
+dependencies = [
+  "fastapi==0.141.1",
+  "uvicorn==0.53.0",
+  "starlette==1.10.0",
+  "pydantic==2.13.5",
+  "pydantic-settings==2.16.3",
+  "python-multipart==0.0.34",
+  "jieba==0.42.1",
+  "rank-bm25==0.2.2",
+  "argon2-cffi==25.1.0",
+  "httpx==0.28.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.2.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-q"
+
+[tool.wenmian.runtime]
+# 运行基线由 py -3 (3.12.9) 创建的 .venv 提供；见 config/app.toml
+python_ep = ".venv/Scripts/python.exe"

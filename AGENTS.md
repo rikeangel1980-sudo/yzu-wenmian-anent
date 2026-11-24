@@ -1,6 +1,6 @@
-# AGENTS｜问面 V2.0 工程规则（P00 临时版）
+# AGENTS｜问面 V2.0 工程规则（P10 工程初始化版）
 
-> 本文件在 P00 建立，用于约束后续所有阶段。P10 工程初始化时补充开发环境、命令与自动化检查，不推翻本文件的事实源优先级与禁止事项。
+> 本文件在 P00 建立，P10 补充开发环境、命令与自动化检查；事实源优先级与禁止事项不推翻。
 
 ## 1. 唯一工作目录
 
@@ -44,3 +44,26 @@
 
 - 中文输出；结构化、可追溯、证据优先；一次只追问一个关键缺口。
 - 常规技术决策自主完成并记录依据；D3 事项只准备方案，不自行批准或执行。
+
+## 7. 开发环境与命令（P10 建立）
+
+- **Python 基线**：`py -3` = Python 3.12.9；项目虚拟环境 `.venv/`（已锁定，见 `requirements.lock`）。所有运行/测试用 `.venv/Scripts/python.exe`。
+- **启动**：`.venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8787`。仅 loopback，禁止改 `--host 0.0.0.0`（NFR-001）。
+- **健康检查**：`curl http://127.0.0.1:8787/api/v2/ops/health`（五态：应用/DB/目录/索引/模型配置）。
+- **测试**：`.venv/Scripts/python.exe -m pytest tests/ -q`。
+- **导出契约**：`.venv/Scripts/python.exe scripts/export_openapi.py` → `openapi.json`（入 Git，P08 据此核对）。
+- **静态门禁**：`.venv/Scripts/python.exe scripts/static_gate.py --report docs/P10_静态门禁报告.md`；退出码非 0 不得进入 P11。
+
+## 8. 冻结资产与允许修改范围（P10 后生效）
+
+- `app/common/**`（errors/responses/db/logging/security/config）：P10 建立后冻结；仅 TASK-B01 可补写 `security.py` 会话查询段，之后永久冻结。
+- `config/app.toml`、`pyproject.toml`、`requirements.lock`、`openapi.json`：P10 独占；后续任务只读，配置新增走独立配置文件。
+- `web/styles/tokens.css`：唯一色值来源（仅 `[data-scheme="A"]` 段）；禁止新增色值或 `[data-role=...]` 配色。
+- `prototype/**`：决策过程资产，不进入交付；B/C 方案禁止复制到 `web/`（静态门禁 G1–G4 拦截）。
+- 各 P11 任务只在自己的目录内新增（`app/base/**`、`web/login/**` 等），不得改上述冻结资产。
+
+## 9. 数据库与迁移约定（P10 落地）
+
+- SQLite 通过 `app.common.db.ConnectionFactory` 创建（WAL/busy_timeout/foreign_keys）；业务代码不得自建连接。
+- 迁移文件 `migrations/[0-9]*.sql` 升序执行，含 `-- +up` / `-- +down` 段；由 `MigrationRunner` 记录 SHA-256 与版本，禁止无迁移直改 Schema。
+- Repository 只用 `get/list/save/delete/transaction` 五方法，不允许裸 cursor 外泄。

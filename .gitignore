@@ -19,3 +19,8 @@ node_modules/
 .env.*
 dist/
 build/
+
+# P10 工程初始化：虚拟环境与本地数据库不入库（openapi.json 是契约源，入库）
+.venv/
+data/
+# logs/ 目录保留（放置 .gitkeep 与脱敏样例说明），真实日志 app.log 由 *.log 规则忽略

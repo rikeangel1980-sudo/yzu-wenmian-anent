@@ -1,0 +1,43 @@
+# 问面 V2.0 应用配置（P10 工程初始化；P10 后只读，新增配置走独立文件）
+# 说明：本文件不含任何密钥、令牌或学生个人信息；Key 仅以 key_ref 引用名出现（P07 §2.5）
+
+[app]
+host = "127.0.0.1"          # 仅 loopback，禁止局域网监听（ADR-001）
+port = 8787
+api_prefix = "/api/v2"      # 契约版本前缀（ADR-014）
+version = "2.0.0"
+openapi_path = "/api/v2/openapi.json"
+
+[db]
+path = "data/wenmian.db"
+wal = true
+busy_timeout_ms = 5000
+foreign_keys = true
+migrations_dir = "migrations"
+
+[logging]
+level = "INFO"
+dir = "logs"
+# 写日志前对这些字段名做脱敏（P07 §2.5）
+redact_fields = ["password", "new_password", "token", "access_token", "csrf_token", "api_key", "key", "student_no", "authorization"]
+
+[security]
+password_hash = "argon2id"
+hash_time_cost = 2          # argon2id time_cost，配置化
+hash_memory_cost_kib = 65536
+hash_parallelism = 2
+session_ttl_minutes = 480
+csrf_enabled = true         # loopback 亦启用（P07 §2.5）
+login_fail_threshold = 5    # OPEN 项：数值可在模块开发前调整，P13 实测固化
+login_fail_window_minutes = 15
+account_lock_minutes = 30
+
+[outbound]
+default_deny = true         # ADR-007：模型调用默认拒绝出域，学生材料逐次 D3 批准
+key_ref = ""                # 仅引用名；真实 Key 存本机受保护位置，不入库/前端/日志
+
+[ai]
+model_gateway_enabled = false   # P10 未接入模型；MOD-AI（A01/A02）阶段才启用
+
+[runtime]
+base_url = "http://127.0.0.1:8787"

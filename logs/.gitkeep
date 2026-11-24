@@ -1,0 +1,6 @@
+# logs/ 目录占位。
+# 运行日志 app.log 由 .gitignore 的 *.log 规则排除，不入库。
+# 日志写入前经 app.common.logging.RedactingFilter 脱敏：密码/Key/令牌/学号不落盘。
+# P10 脱敏日志样例（真实一次启动的记录，字段已脱敏）：
+# 2026-11-24 23:25:21,128 INFO wenmian {'event': 'startup', 'migrations_applied': []}
+# 2026-11-24 23:25:23,000 INFO wenmian {'event': 'http', 'request_id': '4d1277e1...', 'path': '/api/v2/ops/health'}

@@ -1,0 +1,24 @@
+/* ========== 设计令牌 · 方案 A 唯一（Editorial 杂志编辑风） ==========
+   P10 派生自 prototype/styles/tokens.css：只保留 :root 与 [data-scheme="A"] 段。
+   全站唯一允许定义色值的位置（静态门禁 G3 白名单）；B/C 段与方案切换不进入交付。 */
+:root{
+  --space-1:4px; --space-2:8px; --space-3:16px; --space-4:24px;
+  --space-5:40px; --space-6:64px; --space-7:96px;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --dur-fast:160ms; --dur-base:320ms; --dur-slow:640ms;
+  --focus:2px solid var(--accent); --focus-offset:2px;
+}
+
+[data-scheme="A"]{
+  --font-display:"Playfair Display","Noto Serif SC",serif;
+  --font-body:"Noto Serif SC",serif;
+  --font-num:"Playfair Display",serif;
+  --bg:#f6f2ea; --surface:#fdfbf6; --surface-2:#efe9dc;
+  --text:#24201c; --muted:#6f6659; --border:#d9cfbd; --border-strong:#b9ad97;
+  --accent:#b23a2b; --accent-soft:#f3e3de; --on-accent:#fdfbf6;
+  --ok:#4a6b45; --warn:#9a6a1e; --danger:#a5352b;
+  --shadow-1:0 2px 6px rgba(60,45,30,.07);
+  --shadow-2:0 10px 28px rgba(60,45,30,.1);
+  --radius:1px;
+  --body-lh:1.85; --body-ls:.02em;
+}
