@@ -1,27 +1,44 @@
 {
-  "poc": "P05 原型冒烟",
-  "run_at": "2026-11-24T07:18:20.065Z",
-  "pass": 11,
-  "total": 11,
+  "poc": "P05 原型冒烟（重构版）",
+  "run_at": "2026-11-24T07:36:29.417Z",
+  "pass": 13,
+  "total": 13,
   "results": [
     {
-      "scenario": "登录页默认",
+      "scenario": "三套排版骨架结构互不重叠",
       "status": "PASS",
       "detail": {
-        "err": null,
-        "missing": [],
-        "forbiddenFound": [],
-        "domBytes": 57430
+        "overlap": []
       }
     },
     {
-      "scenario": "A-学生首页",
+      "scenario": "A-学生首页(杂志编辑)",
       "status": "PASS",
       "detail": {
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 63928
+        "domBytes": 5583
+      }
+    },
+    {
+      "scenario": "B-教师首页(工业实用)",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 7626
+      }
+    },
+    {
+      "scenario": "C-教师首页(自然有机)",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 5536
       }
     },
     {
@@ -31,57 +48,57 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 63928
+        "domBytes": 5583
       }
     },
     {
-      "scenario": "B-教师工作台",
+      "scenario": "A-知识详情可溯源",
       "status": "PASS",
       "detail": {
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 62295
+        "domBytes": 4973
       }
     },
     {
-      "scenario": "C-教师题库",
+      "scenario": "B-题库审核",
       "status": "PASS",
       "detail": {
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 62559
+        "domBytes": 7383
       }
     },
     {
-      "scenario": "A-图谱三栏",
+      "scenario": "C-图谱三栏",
       "status": "PASS",
       "detail": {
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 63151
+        "domBytes": 6242
       }
     },
     {
-      "scenario": "教师-组卷蓝图",
+      "scenario": "B-组卷蓝图",
       "status": "PASS",
       "detail": {
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 62663
+        "domBytes": 9659
       }
     },
     {
-      "scenario": "教师-批改AI分离",
+      "scenario": "C-批改AI分离",
       "status": "PASS",
       "detail": {
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 62177
+        "domBytes": 5523
       }
     },
     {
@@ -91,7 +108,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 59766
+        "domBytes": 3293
       }
     },
     {
@@ -101,7 +118,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 59779
+        "domBytes": 4934
       }
     },
     {
@@ -111,7 +128,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 59724
+        "domBytes": 2968
       }
     }
   ]
