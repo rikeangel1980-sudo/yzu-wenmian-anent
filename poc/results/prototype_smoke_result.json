@@ -1,0 +1,118 @@
+{
+  "poc": "P05 原型冒烟",
+  "run_at": "2026-11-24T07:18:20.065Z",
+  "pass": 11,
+  "total": 11,
+  "results": [
+    {
+      "scenario": "登录页默认",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 57430
+      }
+    },
+    {
+      "scenario": "A-学生首页",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 63928
+      }
+    },
+    {
+      "scenario": "A-学生首页无裸错误码",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 63928
+      }
+    },
+    {
+      "scenario": "B-教师工作台",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 62295
+      }
+    },
+    {
+      "scenario": "C-教师题库",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 62559
+      }
+    },
+    {
+      "scenario": "A-图谱三栏",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 63151
+      }
+    },
+    {
+      "scenario": "教师-组卷蓝图",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 62663
+      }
+    },
+    {
+      "scenario": "教师-批改AI分离",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 62177
+      }
+    },
+    {
+      "scenario": "异常-会话失效",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 59766
+      }
+    },
+    {
+      "scenario": "异常-加载失败",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 59779
+      }
+    },
+    {
+      "scenario": "异常-未授权",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 59724
+      }
+    }
+  ]
+}
