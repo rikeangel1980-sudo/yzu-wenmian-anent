@@ -15,6 +15,8 @@
   --bg:#f6f2ea; --surface:#fdfbf6; --surface-2:#efe9dc;
   --text:#24201c; --muted:#6f6659; --border:#d9cfbd; --border-strong:#b9ad97;
   --accent:#b23a2b; --accent-soft:#f3e3de;
+  /* A 方案状态色：与暖纸/墨黑/朱砂同调，避免状态徽章跳出整体色调 */
+  --ok:#4a6b45; --warn:#9a6a1e; --danger:#a5352b;
   --shadow-1:0 2px 6px rgba(60,45,30,.07);
   --shadow-2:0 10px 28px rgba(60,45,30,.1);
   --radius:1px;

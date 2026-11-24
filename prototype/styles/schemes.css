@@ -35,7 +35,8 @@
 [data-scheme="A"] .ed-entry .meta{font-family:var(--font-body);font-size:11px;color:var(--muted);margin-top:4px}
 [data-scheme="A"] .ed-quote{background:var(--accent-soft);border-left:3px solid var(--accent);padding:16px 18px;font-family:var(--font-body);font-size:13px;line-height:1.8;margin:14px 0}
 [data-scheme="A"] .ed-quote .cite{display:block;font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:.05em}
-[data-scheme="A"] .ed-figures{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:24px 0}
+/* 学生端 3 项 / 教师端 4 项共用同一版式：按条目数自适应，避免 4 项时第 4 项孤行 */
+[data-scheme="A"] .ed-figures{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:24px 0}
 [data-scheme="A"] .ed-figures div{padding:16px 18px;border-right:1px solid var(--border)}
 [data-scheme="A"] .ed-figures div:last-child{border-right:none}
 [data-scheme="A"] .ed-figures .n{font-family:var(--font-display);font-size:34px;color:var(--text)}

@@ -1,0 +1,79 @@
+{
+  "poc": "P05 方案 A 确认基线冒烟（师生统一）",
+  "run_at": "2026-11-24T07:58:18.219Z",
+  "pass": 8,
+  "total": 8,
+  "results": [
+    {
+      "scenario": "静态-无角色级样式覆盖（师生同色调）",
+      "status": "PASS",
+      "detail": {
+        "roleSelectors": []
+      }
+    },
+    {
+      "scenario": "静态-A 方案状态色与色调 token 完整",
+      "status": "PASS",
+      "detail": {
+        "missingTokens": []
+      }
+    },
+    {
+      "scenario": "静态-基线锁优先于 hash",
+      "status": "PASS",
+      "detail": {
+        "lockOK": true
+      }
+    },
+    {
+      "scenario": "基线-学生首页（hash 强行切 B 应被忽略）",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 5680
+      }
+    },
+    {
+      "scenario": "基线-教师首页（hash 强行切 C 应被忽略）",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 4954
+      }
+    },
+    {
+      "scenario": "基线-教师题库仍为 A 风格",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 5243
+      }
+    },
+    {
+      "scenario": "基线-知识详情可溯源",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 5076
+      }
+    },
+    {
+      "scenario": "基线-异常态会话失效",
+      "status": "PASS",
+      "detail": {
+        "err": null,
+        "missing": [],
+        "forbiddenFound": [],
+        "domBytes": 3396
+      }
+    }
+  ]
+}

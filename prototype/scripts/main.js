@@ -4,6 +4,9 @@
    数据驱动渲染；分享同一份数据与交互，视觉由各自 CSS 决定
    ========================================================= */
 const S={scheme:'A',role:'student',page:'home',logged:false,forceState:null};
+/* 开发基线锁：baseline.html 或 ?baseline=1 时只允许方案 A，师生共用同一套 tokens/字体/色调。
+   index.html 保留 B/C 仅作 P05 决策过程对比，不作为后续开发依据。 */
+const LOCK_A = /baseline\.html$/i.test(location.pathname) || new URLSearchParams(location.search).get('baseline')==='1';
 const el=id=>document.getElementById(id);
 
 const I={
@@ -23,9 +26,9 @@ const I={
 
 const DATA={
   courses:[
-    {name:'面点工艺学',term:'2026 秋',teacher:'王acct老师',progress:68,ch:'面'},
+    {name:'面点工艺学',term:'2026 秋',teacher:'王敏老师',progress:68,ch:'面'},
     {name:'中式面点实训',term:'2026 秋',teacher:'李指导教师',progress:42,ch:'实'},
-    {name:'烘焙工艺基础',term:'2026 秋',teacher:'王acct老师',progress:15,ch:'烘'}
+    {name:'烘焙工艺基础',term:'2026 秋',teacher:'王敏老师',progress:15,ch:'烘'}
   ],
   todos:[
     {t:'第四章 水调面团 · 单元测验',m:'截止 11-28 23:59 · 剩余 2 天',page:'quiz'},
@@ -75,8 +78,11 @@ const SUB={home:'今天的学习从这里开始',courses:'按学期查看你参�
 function devbar(){
   const sch=[['A','A 杂志编辑'],['B','B 工业实用'],['C','C 自然有机']];
   const st=[['','正常'],['expired','会话失效'],['loadfail','加载失败'],['loading','加载中'],['forbidden','未授权']];
-  el('devbar').innerHTML=`<span class="tag">P05 原型控制台</span>
-    <span class="grp"><span class="lbl">视觉风格</span>${sch.map(([k,n])=>`<button data-scheme="${k}" class="${S.scheme===k?'on':''}">${n}</button>`).join('')}</span>
+  const styleCtl = LOCK_A
+    ? `<span class="grp"><span class="lbl">视觉风格</span><span class="tag" id="lockBadge">A 杂志编辑 · 已锁定（师生统一）</span></span>`
+    : `<span class="grp"><span class="lbl">视觉风格</span>${sch.map(([k,n])=>`<button data-scheme="${k}" class="${S.scheme===k?'on':''}">${n}</button>`).join('')}</span>`;
+  el('devbar').innerHTML=`<span class="tag">${LOCK_A?'P05 确认基线':'P05 原型控制台'}</span>
+    ${styleCtl}
     <span class="grp"><span class="lbl">角色</span><button data-role="student" class="${S.role==='student'?'on':''}">学生端</button><button data-role="teacher" class="${S.role==='teacher'?'on':''}">教师端</button></span>
     <span class="grp"><span class="lbl">状态</span>${st.map(([k,n])=>`<button data-state="${k}" class="${S.forceState===k?'on':''}">${n}</button>`).join('')}</span>
     <span class="spacer"></span><button data-go="login">返回登录</button><span class="hint">点导航/按钮体验</span>`;
@@ -133,7 +139,7 @@ function shellA(inner){
   return `<div class="ed-masthead">
       <div class="brand">问面<small>Wenmian · Teaching Review</small></div>
       <div class="issue">第 2.0 卷 · 2026 秋季号</div><div class="spacer"></div>
-      <span class="role">${S.role==='student'?'学生 · 2024010231':'教师 · 王acct'}</span>
+      <span class="role">${S.role==='student'?'学生 · 2024010231':'教师 · 王敏'}</span>
       <button class="icon-btn" data-act="bell">${I.bell}</button>
       <button class="btn ghost" data-act="logout" style="min-height:34px;padding:0 10px">退出</button>
     </div>
@@ -397,6 +403,8 @@ function homeForScheme(){
 function render(){
   document.body.setAttribute('data-scheme',S.scheme);
   document.body.dataset.role=S.role;
+  document.body.dataset.locked=LOCK_A?'1':'0';
+  window.__WM_STATE__={scheme:S.scheme,role:S.role,page:S.page,locked:LOCK_A,logged:S.logged,state:S.forceState};
   devbar();
   if(!S.logged){el('root').innerHTML=loginView();return}
   // 异常态优先于页面内容渲染
@@ -417,7 +425,9 @@ function toast(msg){
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-scheme],[data-role],[data-state],[data-go],[data-act],[data-node]');
   if(!b)return;
-  if(b.hasAttribute('data-scheme')){S.scheme=b.dataset.scheme;render();return}
+  if(b.hasAttribute('data-scheme')){
+    if(LOCK_A){toast('方案 A 已锁定为开发基线，师生统一风格不可切换');return}
+    S.scheme=b.dataset.scheme;render();return}
   if(b.hasAttribute('data-role')){S.role=b.dataset.role;if(S.logged)S.page='home';render();return}
   if(b.hasAttribute('data-state')){S.forceState=b.dataset.state||null;render();return}
   if(b.hasAttribute('data-node')){toast('已选中节点 · 右侧显示详情与来源');return}
@@ -459,5 +469,6 @@ document.addEventListener('input',e=>{
   if(p.get('page'))S.page=p.get('page');
   if(p.get('logged')==='1')S.logged=true;
   if(p.get('state'))S.forceState=p.get('state');
+  if(LOCK_A)S.scheme='A'; // 基线锁优先于 hash，防止通过分享链接绕过
 })();
 render();

@@ -1,6 +1,6 @@
 {
   "poc": "P05 原型冒烟（重构版）",
-  "run_at": "2026-11-24T07:36:29.417Z",
+  "run_at": "2026-11-24T07:56:35.890Z",
   "pass": 13,
   "total": 13,
   "results": [
@@ -18,7 +18,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 5583
+        "domBytes": 5593
       }
     },
     {
@@ -28,7 +28,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 7626
+        "domBytes": 7642
       }
     },
     {
@@ -38,7 +38,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 5536
+        "domBytes": 5552
       }
     },
     {
@@ -48,7 +48,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 5583
+        "domBytes": 5593
       }
     },
     {
@@ -58,7 +58,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 4973
+        "domBytes": 4989
       }
     },
     {
@@ -68,7 +68,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 7383
+        "domBytes": 7399
       }
     },
     {
@@ -78,7 +78,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 6242
+        "domBytes": 6258
       }
     },
     {
@@ -88,7 +88,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 9659
+        "domBytes": 9675
       }
     },
     {
@@ -98,7 +98,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 5523
+        "domBytes": 5539
       }
     },
     {
@@ -108,7 +108,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 3293
+        "domBytes": 3309
       }
     },
     {
@@ -118,7 +118,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 4934
+        "domBytes": 4950
       }
     },
     {
@@ -128,7 +128,7 @@
         "err": null,
         "missing": [],
         "forbiddenFound": [],
-        "domBytes": 2968
+        "domBytes": 2984
       }
     }
   ]
