@@ -1,0 +1,20 @@
+# WorkBuddy 会话内部数据（非项目源码）
+.workbuddy/
+
+# 外部规范副本（原始规范目录 D:/Projects/AI软件开发标准体系V1.3 为权威源）
+AI软件开发标准体系V1.3/
+
+# 临时与系统文件
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+*.swp
+
+# 运行时产物
+__pycache__/
+node_modules/
+.env
+.env.*
+dist/
+build/
