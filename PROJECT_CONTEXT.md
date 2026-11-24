@@ -56,6 +56,8 @@
 | F-10 | 前序产物目录 `D:\Projects\wenmian_buddy` 已被用户确认完全排除。 | 用户明确指令（2026-11-24 12:30） | **已确认（P00-A1）** | 不读取、不导入其代码/页面/数据；仅以 docs 下 V2.0 三份规范为需求事实来源。 |
 | F-11 | P04 实测环境：Windows 10 / Python 3.12.9（另有 3.13.14）/ Node 22.22.2 / SQLite 3.45.3 / 端口 8787 空闲 / D 盘可用 463G；已装 fastapi/uvicorn/jieba/pydantic 但未装 SQLAlchemy/Alembic/rank_bm25。 | `docs/P04_技术可行性与开源复用评估报告.md` §2 + `poc/results/` | **实测事实（2026-11-24）** | 锁定 `py -3`=3.12.9 为运行基线；ORM 双轨见 TR-02。 |
 | F-12 | P04 路线结论：组件级复用 + 业务内核自研（路线 C）；G6 v5.1.1 的 v4 API（readData）已失效且强制边唯一。 | P04 报告 §4/§5 + PoC-02 | **已确认（P04 PASS 有条件）** | P06/P07 必须按 G6 v5 重做图谱适配；图谱数据先去重与稳定 ID。 |
+| F-13 | 用户 15:50 确认方案 A（Editorial）为唯一开发基线，学生端与教师端统一风格与色调；`prototype/baseline.html` 锁定 A。 | `docs/P05_方案A基线确认记录.md` + 8/8 基线冒烟 | **已确认** | 交付前端只含 A 资产；B/C 不部署；禁止角色级配色与非 token 色值。 |
+| F-14 | P06 总体架构 PASS（架构层面）；初稿独立挑战 FAIL（4 BLOCKER），修订后 26 项发现全 CLOSED；G6 假 PASS 已用严格判据复验；ORM 基线定为 sqlite3+schema_migrations。 | `docs/P06_系统总体架构设计.md` §10~§12 + `poc/results/g6_poc_result.json` | **已确认（2026-11-24 16:20）** | P07 按 ADR 与 75 项追溯设计；500/1500 性能与外部模型联通仍 NOT_RUN。 |
 
 ## 假设与待确认事项
 

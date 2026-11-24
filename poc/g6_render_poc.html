@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><title>P04 G6 PoC</title>
+<head><meta charset="utf-8"><title>P04 G6 PoC（严格判定版）</title>
 <style>body{margin:0}#c{width:600px;height:400px}</style></head>
 <body>
 <div id="c"></div>
 <pre id="result">RUNNING</pre>
 <script src="./g6.min.js"></script>
 <script>
+/* 严格判定：不把“canvas 存在”当 PASS。必须同时满足：
+   1) 数据层 40 节点/40 边；2) 抽样节点 getElementRenderBounds 返回有限绘制边界；
+   3) canvas 分层存在；4) 无 error/unhandledrejection。
+   render() Promise 状态单独记录：headless 虚拟时间下可能不 resolve，作为环境发现而非绘制判据。 */
 (function(){
   var out = document.getElementById('result');
-  function done(status, detail){ out.textContent = status + ' ' + JSON.stringify(detail); }
+  var errors = [], promiseState = 'pending';
+  window.addEventListener('error', function(e){ errors.push('error: ' + e.message); });
+  window.addEventListener('unhandledrejection', function(e){ errors.push('rejection: ' + String(e.reason)); });
+  function done(status, detail){
+    if (window.__POC_DONE__) return;
+    window.__POC_DONE__ = true;
+    out.textContent = status + ' ' + JSON.stringify(detail);
+  }
   try {
     if (typeof G6 === 'undefined' || !G6.Graph) { done('FAIL', {reason:'G6 global missing'}); return; }
     var nodes = [], edges = [], seen = {};
@@ -19,27 +30,44 @@
       if (seen[key]) continue; seen[key]=1;
       edges.push({id:'e'+edges.length, source:s, target:t});
     }
-    window.__graph = new G6.Graph({container:'c', width:600, height:400,
-                              data:{nodes:nodes, edges:edges}});
+    var graph = new G6.Graph({container:'c', width:600, height:400,
+      autoFit:'view', animation:false,
+      layout:{type:'grid'},
+      node:{style:{size:16, labelFill:'#222'}},
+      edge:{style:{stroke:'#999'}},
+      data:{nodes:nodes, edges:edges}});
+    window.__graph = graph;
     var t0 = performance.now();
-    var p = window.__graph.render();
-    if (p && typeof p.catch === 'function') p.catch(function(e){ done('FAIL',{renderError:String(e)}); });
-    window.__meta = {t0:t0, nodeCount:nodes.length, edgeCount:edges.length};
+    Promise.resolve(graph.render()).then(function(){ promiseState='resolved'; })
+      .catch(function(e){ promiseState='rejected: '+String(e); errors.push('render: '+String(e)); });
     var ticks = 0;
     var timer = setInterval(function(){
       ticks++;
+      var nodeCount = (graph.getNodeData && graph.getNodeData().length) || -1;
+      var edgeCount = (graph.getEdgeData && graph.getEdgeData().length) || -1;
+      var bounds = [];
+      ['n0','n7','n39'].forEach(function(id){
+        try {
+          var b = graph.getElementRenderBounds(id);
+          var pos = graph.getElementPosition ? graph.getElementPosition(id) : null;
+          var boundsOk = !!(b && b.min && b.max && isFinite(b.min[0]) && isFinite(b.min[1]) &&
+                      isFinite(b.max[0]) && isFinite(b.max[1]) && b.max[0] >= b.min[0] && b.max[1] >= b.min[1]);
+          var posOk = !!(pos && isFinite(pos[0]) && isFinite(pos[1]));
+          bounds.push({id:id, ok:boundsOk && posOk, min:b&&b.min, max:b&&b.max, position:pos});
+        } catch(e) { bounds.push({id:id, ok:false, err:String(e)}); }
+      });
+      var boundsOk = bounds.filter(function(b){return b.ok}).length;
       var canvasCount = document.querySelectorAll('#c canvas').length;
-      if (canvasCount > 0 || ticks > 40) {
+      var drawn = nodeCount===40 && edgeCount===40 && boundsOk===3 && canvasCount>0 && errors.length===0;
+      if (drawn || ticks>60) {
         clearInterval(timer);
-        var g = window.__graph;
-        var drawn = (g.getNodeData && g.getNodeData().length) || -1;
-        done(canvasCount>0 ? 'PASS' : 'FAIL',
-             {g6Version:'5.1.1', nodes:window.__meta.nodeCount, edges:window.__meta.edgeCount,
-              graphNodes:drawn, canvasCount:canvasCount,
-              renderMs:Math.round(performance.now()-window.__meta.t0), ticks:ticks});
+        done(drawn?'PASS':'FAIL', {g6Version:'5.1.1', nodes:nodeCount, edges:edgeCount,
+          expectedNodes:40, expectedEdges:40, renderedBounds:bounds, boundsOk:boundsOk,
+          canvasCount:canvasCount, renderMs:Math.round(performance.now()-t0), ticks:ticks,
+          renderPromise:promiseState, errors:errors});
       }
     }, 100);
-  } catch(e) { done('FAIL', {reason:String(e), stack:e.stack}); }
+  } catch(e) { done('FAIL', {reason:String(e), stack:e.stack, errors:errors}); }
 })();
 </script>
 </body></html>
