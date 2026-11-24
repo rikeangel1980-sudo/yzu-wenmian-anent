@@ -53,5 +53,30 @@ def constant_time_equal(a: str, b: str) -> bool:
     return hmac.compare_digest(a, b)
 
 
-# ---- TASK-B01 会话查询段占位（P10 不实现；B01 唯一允许补写的区域） ----
-# def create_session(...) / def lookup_session(...) / def revoke_session(...)
+# ---- TASK-B01 会话查询段（P09 约定的唯一允许补写区域；B01 后永久冻结） ----
+# 仅提供令牌哈希与有效期判定；会话表读写在 app/base/auth/repository.py。
+def hash_token(token: str) -> str:
+    """令牌/CSRF 只以 SHA-256 摘要入库，明文仅存在于响应与请求头。"""
+    import hashlib
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def new_session_token() -> str:
+    return secrets.token_urlsafe(32)
+
+
+def session_expiry(minutes: int, now: str | None = None) -> str:
+    """按 UTC 生成 ISO-8601 过期时间；分钟数来自配置，不写死。"""
+    from datetime import datetime, timedelta, timezone
+    if now:
+        base = datetime.fromisoformat(now.replace("Z", "+00:00"))
+    else:
+        base = datetime.now(timezone.utc)
+    return (base + timedelta(minutes=minutes)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def is_session_expired(expires_at: str, now: str | None = None) -> bool:
+    from datetime import datetime, timezone
+    current = datetime.fromisoformat(now.replace("Z", "+00:00")) if now else datetime.now(timezone.utc)
+    expiry = datetime.fromisoformat(expires_at.replace("Z", "+00:00"))
+    return current >= expiry

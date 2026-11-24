@@ -1,12 +1,12 @@
 # PROJECT_STATUS｜问面 V2.0 当前状态
 
 - **项目名称**：问面 V2.0 面向课程的 AI 智能教学平台（重构）
-- **当前版本**：V2.0-P10-EngineeringInit-20261124
-- **当前阶段**：P10 已收口（工程底座层 PASS）；可启动+健康检查+5/5 冒烟+契约导出实测通过；G1–G10 无 FAIL；准备进入 P11 首个业务切片
-- **当前里程碑**：M4 工程底座就绪（P10 骨架 + 冻结资产 + 自动化门禁）
-- **当前任务**：TASK-B01 登录、会话与强制改密闸门（首个可运行业务切片）
-- **当前 Git Commit**：`476c1c9`（P10 工程初始化：30 文件、骨架/migrations/web/门禁）
-- **最近更新时间**：2026-11-24 23:28 +0800
+- **当前版本**：V2.0-P11-B01-20261124
+- **当前阶段**：P11 TASK-B01 已收口（功能闭环层 PASS，有条件）；pytest 15/15、真实 HTTP 登录链路通过、G1–G10 无 FAIL；准备进入 TASK-B02
+- **当前里程碑**：M4 功能开发与系统验证（B01 首个可运行业务切片）
+- **当前任务**：TASK-B02 账号来源、课程班级与授权范围
+- **当前 Git Commit**：待 P11 提交更新
+- **最近更新时间**：2026-11-24 23:50 +0800
 
 ## 已完成成果
 
@@ -24,6 +24,7 @@
 - 2026-11-24 22:36 用户明确选择「授权只读参考旧工程清单文本」路线：已从 `wenmian_buddy` 只读提取 42 问题文本与 63 条 QA 检查意图，生成 `REJECT_SAMPLES_v0.2.md`（36 入槽+6 备选+6 待新编）与 `E2E_SCENARIOS_v0.2.md`（63 改写+8 V2.0 新增）；状态 `CONTENT_DRAFT_PENDING_TEACHER`，判定仍 BLOCKED；未导入代码/页面/数据，未宣称内容锁定。
 - P09 任务拆解完成：16 个任务卡（含 P10 前置门禁）均含八项字段；按纵向切片优先 MOD-BASE，关键路径 P10→B01→B02→B03→B04；75 项 MUST 全覆盖且 P08 用例逐项映射；共享核心文件冻结与 B01 唯一例外已写明（见 `docs/P09_开发任务拆解与依赖规划.md`）。
 - P10 工程初始化完成（工程底座层 PASS）：Python 3.12.9 venv + 32 包锁定；FastAPI 骨架（`app/common/**` 六模块 + `app/main.py`）、sqlite3+schema_migrations（0000 已执行）、A 基线 web 派生资产；实测启动 127.0.0.1:8787、健康检查五态、OpenAPI 导出 `/api/v2/*`、pytest 5/5、G1–G10 无 FAIL（见 `docs/P10_工程初始化报告.md` 与 `docs/P10_静态门禁报告.md`）。业务功能未开发，UI 运行时判据 NOT_RUN(P13)。
+- P11 TASK-B01 完成（功能闭环层 PASS 有条件）：`migrations/0001_auth.sql` 三表、`app/base/auth/**` 四端点与闸门、`web/login/**` 无侧栏改密弹层、`tests/base/test_auth.py` 10 项；15/15 pytest、真实 HTTP 登录→me→退出→复用 401、G1–G10 复核退出码 0；新增 `app.base.bootstrap:app` 组合入口避免改动冻结 `app/main.py`；OpenAPI 快照另存 `docs/evidence/`。发现 3 项真实缺陷（D-B01-01 argon2 type、D-B01-02 0000 迁移注释截断、D-B01-03 测试污染运行时库），前两项根因待 P12、第三项 CLOSED（见 `docs/P11_B01_实现报告.md`）。
 
 ## 当前阻塞
 
@@ -94,18 +95,22 @@
 | 2026-11-24 23:25 | TASK-P10-01 / 待提交 | OpenAPI 导出 + 5 项 pytest 冒烟 | **PASS**；路径仅 `/api/v2/*`；pytest 5/5 | `openapi.json`、`docs/P10_工程初始化报告.md` §4 |
 | 2026-11-24 23:26 | TASK-P10-01 / 待提交 | A 基线静态门禁 G1–G10（首跑 G2 误报复扫修正后） | **PASS（退出码 0）**；6 静态 PASS + 4 STRUCTURAL_PASS；运行时判据 NOT_RUN(P13) | `docs/P10_静态门禁报告.md` |
 | 2026-11-24 23:28 | TASK-P10-01 / 待提交 | P10 完成条件自检 8 项 | **PASS（工程底座层）**；业务模块/UI/外部审查仍 NOT_RUN | `docs/P10_工程初始化报告.md` §8 |
+| 2026-11-24 23:46 | TASK-B01 / 待提交 | pytest（P10 冒烟 5 + B01 10） | **PASS 15/15**；临时库隔离，运行时库未污染 | `tests/base/test_auth.py` |
+| 2026-11-24 23:47 | TASK-B01 / 待提交 | G1–G10 对新增 `web/login/**` 复核 | **PASS（退出码 0）**；6 静态 PASS + 4 STRUCTURAL_PASS | `docs/P11_静态门禁复核.md` |
+| 2026-11-24 23:48 | TASK-B01 / 待提交 | 真实服务 HTTP：登录/me/页面/资源/退出/复用 | **PASS**；仅 loopback、`schema_version=0001_auth`、复用 401 | `docs/P11_B01_实现报告.md` §3.3 |
+| 2026-11-24 23:50 | TASK-B01 / 待提交 | 完成条件自检与 3 项真实缺陷登记 | **PASS（功能闭环层，有条件）**；D-B01-01/02 根因待 P12；UI/外部审查 NOT_RUN | `docs/P11_B01_实现报告.md` §4/§5 |
 
 > 状态口径严格遵循 V1.3：PASS / FAIL / NOT_RUN / BLOCKED / WAIVED。未执行项一律写 NOT_RUN，不虚报为通过。
 
 ## 下一步任务
 
-1. P02–P10 已收口：PRD V1.2、P03 审查、P04 评估、P05 用户确认 A 基线、P06 架构、P07 详设、P08 测试方案、P09 任务拆解、P10 工程初始化（工程底座层 PASS，实测启动通过）。
-2. 进入 **P11 首个业务切片 TASK-B01**：登录/会话/强制改密闸门；新增 `migrations/0001_auth.sql`、`app/base/auth/**`、`web/login/**`、`tests/base/test_auth.py`；**唯一例外**可补写 `app/common/security.py` 会话查询段，之后永久冻结。
+1. P02–P11(B01) 已收口：PRD V1.2、P03 审查、P04 评估、P05 用户确认 A 基线、P06 架构、P07 详设、P08 测试方案、P09 任务拆解、P10 工程初始化、P11 TASK-B01（功能闭环层 PASS 有条件）。
+2. 进入 **P11 TASK-B02**：账号来源枚举、管理员创建教师/审核人、课程与班级、越权拦截；新增 `migrations/0002_scope.sql`、`app/base/accounts/admin_*.py`、`app/base/courses/**`、`app/base/classes/**`、`web/courses/**`、`web/accounts/**`、`tests/base/test_scope.py`。复用 B01 的 `require_full_auth` / `require_role`；资源级 `require_scope` 在 B02 实现。**不得改 B01 auth 目录与任何冻结资产。**
 3. 真实阻塞（须人类处理）：42/71 已有迁移草案，但内容锁定仍需教材解析、授权书面确认与教师逐条签字（6 条样本新编、8 条新增场景、OPEN-15 旧抽签取舍）；500/1500 阈值需 P13 实测；OPEN-05 心跳参数待配置；OPEN-14 golden set 数值待确认；D3 预算与出域待批准。
 4. 保留门禁：`STU-005` 在三清单 CONTENT_LOCKED 前保持 BLOCKED；`KG-014`/`NFR-007` 在 P13 阈值固化前 BLOCKED；`NFR-011` D3 数值未配置 BLOCKED；P12 Gemini 外部独立审查与 P13 人工验收均未执行，AI 不代签；浏览器版本记录留 P13。
 
 ## 下一步提示词
 
 ```text
-继续 P11：以 TASK-P10-01 PASS 为前置，按 P09 任务卡执行 TASK-B01（登录、会话与强制改密闸门）。新增 migrations/0001_auth.sql、app/base/auth/**、web/login/**、tests/base/test_auth.py；落实身份双层（学号仅哈希、内部 UUID）、argon2id、学号哈希+IP 哈希双维度限速、must_change_password 服务端拦截（白名单 /auth/me /auth/logout /auth/change-password）、统一错误码与脱敏日志。唯一例外：补写 app/common/security.py 会话查询段，除此之外冻结资产只读。完成后跑 pytest 并回填真实证据，未执行项标 NOT_RUN。
+继续 P11：按 P09 TASK-B02 任务卡实现账号来源、课程班级与授权范围。新增 migrations/0002_scope.sql、app/base/accounts/admin_*.py、app/base/courses/**、app/base/classes/**、web/courses/**、web/accounts/**、tests/base/test_scope.py；落实 account_source 枚举、AccountCreate.role 不含 student、课程 display_name 与教材名独立、停用课程不出现在学生端、归档班历史保留、学生访问教师端点/教师跨班访问 403 并写审计；实现 require_scope 资源级授权，复用 B01 会话闸门，不改冻结资产与 B01 auth 目录。完成后跑 pytest 并回填真实证据，未执行项标 NOT_RUN。
 ```

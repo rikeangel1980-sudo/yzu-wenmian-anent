@@ -1,0 +1,46 @@
+/* B01 登录页：沿用 A 基线 ed-* 类名与令牌；无侧栏导航；不新增色值。 */
+.login-masthead { border-bottom: 1px solid var(--border); }
+
+.login-main {
+  min-height: 72vh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6) var(--space-4);
+  background: var(--bg);
+}
+
+.login-card { width: min(520px, 100%); }
+
+.login-form { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+
+.field { display: grid; gap: var(--space-1); font-size: .92rem; color: var(--muted); }
+.field input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+.field input:focus { outline: var(--focus); outline-offset: var(--focus-offset); }
+
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+
+.form-error { color: var(--danger); font-size: .9rem; margin: 0; }
+
+.footnote { color: var(--muted); font-size: .82rem; margin-top: var(--space-4); }
+
+.confirm-layer[hidden] { display: none; }
+.confirm-layer {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background: var(--surface-2);
+  z-index: 20;
+}
+.pw-card { width: min(560px, 100%); box-shadow: var(--shadow-2); }
+
+.state-actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); }

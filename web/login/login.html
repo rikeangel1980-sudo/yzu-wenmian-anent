@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-scheme="A">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>登录 · 问面 V2.0</title>
+  <link rel="stylesheet" href="/assets/styles/tokens.css">
+  <link rel="stylesheet" href="/assets/styles/base.css">
+  <link rel="stylesheet" href="/assets/login/login.css">
+</head>
+<body>
+  <header class="ed-masthead login-masthead">
+    <div class="brand">问面<small>WENMIAN · V2.0</small></div>
+    <div class="issue">中国名点课程 · 智能教学助手</div>
+    <div class="spacer"></div>
+    <div class="role">本地教学环境</div>
+  </header>
+
+  <main class="login-main" id="root">
+    <section class="ed-entry login-card">
+      <div class="ed-kicker">账号登录</div>
+      <h1 class="ed-title">欢迎回到问面</h1>
+      <p class="ed-lede">使用课程名单中的学号登录。初始密码登录后需要先完成修改。</p>
+      <form id="loginForm" class="login-form" novalidate>
+        <label class="field">
+          <span>学号</span>
+          <input id="loginId" name="login_id" type="text" autocomplete="username" required>
+        </label>
+        <label class="field">
+          <span>密码</span>
+          <input id="loginPassword" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <p class="form-error" id="loginError" role="alert" hidden></p>
+        <div class="actions">
+          <button class="btn primary" type="submit">登录</button>
+          <button class="btn ghost" type="button" id="goHome">返回首页</button>
+        </div>
+      </form>
+      <p class="footnote">本系统仅在本机运行；账号由教师名单导入或管理员创建。</p>
+    </section>
+  </main>
+
+  <div class="confirm-layer" id="pwLayer" role="dialog" aria-modal="true" hidden>
+    <section class="ed-entry pw-card">
+      <div class="ed-kicker">安全设置</div>
+      <h2 class="ed-title">请先修改初始密码</h2>
+      <p class="ed-lede">完成修改前仅可使用本窗口，成绩与档案入口暂不可用。</p>
+      <form id="pwForm" class="login-form" novalidate>
+        <label class="field"><span>当前密码</span><input id="oldPw" type="password" autocomplete="current-password" required></label>
+        <label class="field"><span>新密码</span><input id="newPw" type="password" autocomplete="new-password" required></label>
+        <p class="form-error" id="pwError" role="alert" hidden></p>
+        <div class="actions">
+          <button class="btn primary" type="submit">保存并继续</button>
+          <button class="btn ghost" type="button" id="pwLogout">退出登录</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="/assets/login/login.js"></script>
+</body>
+</html>

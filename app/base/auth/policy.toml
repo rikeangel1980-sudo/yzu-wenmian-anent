@@ -1,0 +1,11 @@
+# B01 独立策略配置（不修改 P10 冻结的 config/app.toml）
+[password]
+min_length = 8
+max_length = 128
+require_digit = true
+require_letter = true
+
+[login]
+# 阈值与窗口仍取 config/app.toml；此处仅声明来源，避免业务代码写死第二套数值
+threshold_source = "config/app.toml:security.login_fail_threshold"
+window_source = "config/app.toml:security.login_fail_window_minutes"
